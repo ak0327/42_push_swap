@@ -25,17 +25,21 @@ NAME		= push_swap
 VPATH		= $(SRC_DIR)
 SRC_DIR		= ./srcs
 SRC			= main.c \
-			  pipe.c \
-			  inputs.c \
-			  open_files.c \
+			  ft_stack.c \
+			  operation.c \
+			  preprocess.c \
+			  exec_sort.c \
 			  utils.c \
-			  errors.c \
+
+
+
+
 
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRC))
 
 OBJ_DIR		= ./objs
 OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
-DEPS		= $(OBJS:%.o=%.d)
+DEPS		= $(OBJS:%.o=%.d) #SRC
 
 INCLUDE_DIR	= ./includes
 
@@ -48,19 +52,7 @@ ifdef WITH_BONUS
 #	NAME		= pipex_bonus
 	SRC_DIR		= ./bonus/srcs
     SRC			= main_bonus.c \
-				  inputs_bonus.c \
-				  open_files_bonus.c \
-				  utils_bonus.c \
-				  errors_bonus.c \
-				  env_lsts_bonus.c \
-				  free_alloc_bonus.c \
-				  multi_pipe_controller_bonus.c \
-				  init_pipe_params_bonus.c \
-				  envvar_expansion_bonus.c \
-				  here_doc_bonus.c \
-				  exec_cmd_bonus.c \
-				  exec_pipe_bonus.c \
-
+m.m
     INCLUDE_DIR	= ./bonus/includes
 endif
 
@@ -107,7 +99,6 @@ clean:
 
 fclean:	clean
 	rm -f $(NAME)
-#	rm -f $(NAME) $(BONUS_NAME)
 	@make fclean -C $(LIBFT_DIR)
 	@make fclean -C $(LIBGNL_DIR)
 	@make fclean -C $(LIBFTPRINTF_DIR)
