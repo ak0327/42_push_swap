@@ -221,10 +221,6 @@ t_info	*init_params(int argc)
 	info->num_cnt = (size_t)argc - 1;
 	info->sorted_array = NULL;
 	info->is_sorted = true;
-	info->a_min = -1;
-	info->a_max = -1;
-	info->b_min = -1;
-	info->b_max = -1;
 	return (info);
 }
 
@@ -312,9 +308,14 @@ int main(int argc, char **argv)
 	exec_sort(info);
 //	print_stacks(info, "after exec sort");
 //	print_cmd_list_with_msg(info->op_list, "after_sort");
-	print_cmd_list(info->op_list);
 
-//	optimize_cmds(info);
+//	printf("before opt\n");
+//	print_cmd_list(info->op_list);
+
+//	optimize_cmd(info);
+
+//	printf("after opt\n");
+	print_cmd_list(info->op_list);
 
 	// free()
 //	free(sorted_array);//TODO: cmd_list, stack

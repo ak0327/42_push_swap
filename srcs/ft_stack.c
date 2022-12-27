@@ -12,29 +12,6 @@
 
 #include "./../includes/push_swap.h"
 
-t_stack	*create_stack_elem(int num)
-{
-	t_stack	*new_elem;
-
-	new_elem = (t_stack *)malloc(sizeof(t_stack));
-	if (!new_elem)
-		return (NULL);
-	new_elem->raw_value = num;
-	new_elem->val = num;
-	new_elem->prev = NULL;
-	new_elem->next = NULL;
-	return (new_elem);
-}
-
-t_stack	*get_last_elem(t_stack *elem)
-{
-	if (!elem)
-		return (NULL);
-	while (elem->next)
-		elem = elem->next;
-	return (elem);
-}
-
 void	add_left(t_stack *elem, t_stack **stk)
 {
 	if (!stk)
@@ -92,69 +69,4 @@ t_stack	*pop_right(t_stack **stk)
 	last_elem->prev = NULL;
 	last_elem->next = NULL;
 	return (last_elem);
-}
-
-size_t	get_stack_size(t_stack *stk)
-{
-	size_t	size;
-
-	size = 0;
-	while (stk)
-	{
-		stk = stk->next;
-		size++;
-	}
-	return (size);
-}
-
-void	ft_stack_iter(t_stack *stk, void (*f)(void *))
-{
-	if (!stk)
-		return ;
-	while (stk)
-	{
-		(*f)(stk);
-		stk = stk->next;
-	}
-}
-
-void	ft_stack_clear(t_stack **stk)
-{
-	t_stack	*next;
-
-	if (!stk)
-		return ;
-	while (*stk)
-	{
-		next = (*stk)->next;
-		free(*stk);
-		*stk = next;
-	}
-}
-
-char	*get_cmd(t_op_cmd cmd)
-{
-	if (cmd == E_SA)
-		return ("sa");
-	if (cmd == E_SB)
-		return ("sb");
-	if (cmd == E_SS)
-		return ("ss");
-	if (cmd == E_PA)
-		return ("pa");
-	if (cmd == E_PB)
-		return ("pb");
-	if (cmd == E_RA)
-		return ("ra");
-	if (cmd == E_RB)
-		return ("rb");
-	if (cmd == E_RR)
-		return ("rr");
-	if (cmd == E_RRA)
-		return ("rra");
-	if (cmd == E_RRB)
-		return ("rrb");
-	if (cmd == E_RRR)
-		return ("rrr");
-	return ("Not Exist");
 }

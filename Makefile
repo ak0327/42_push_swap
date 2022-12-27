@@ -26,9 +26,17 @@ VPATH		= $(SRC_DIR)
 SRC_DIR		= ./srcs
 SRC			= main.c \
 			  ft_stack.c \
-			  operation.c \
+			  ft_stack_add.c \
+			  ft_stack_get.c \
+			  operation_cmd.c \
+			  operation_controller.c \
+			  operation_single.c \
+			  operation_double.c \
 			  preprocess.c \
 			  exec_sort.c \
+			  get_cost.c \
+			  optimize_cmd.c \
+			  print_for_debug.c \
 			  utils.c \
 
 

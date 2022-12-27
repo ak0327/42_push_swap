@@ -12,7 +12,7 @@
 
 #include "./../includes/push_swap.h"
 
-size_t	bubble_sort(int **array, size_t elem_cnt)
+static size_t	bubble_sort(int **array, size_t elem_cnt)
 {
 	size_t	i;
 	size_t	j;
@@ -60,7 +60,6 @@ int	*get_sorted_array(t_info *info)
 		stk = stk->next;
 		idx++;
 	}
-//	print_num_array(array, info->num_cnt, "before");
 	swap_times = bubble_sort(&array, info->num_cnt);
 	if (swap_times > 0)
 		info->is_sorted = false;
@@ -81,7 +80,7 @@ bool	check_arg_valid(t_info *info)
 	return (true);
 }
 
-int	get_sorted_idx(const int *sorted_arr, int search_num)
+static int	get_sorted_idx(const int *sorted_arr, int search_num)
 {
 	int	idx;
 
