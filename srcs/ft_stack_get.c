@@ -38,7 +38,7 @@ int	get_max_val(t_stack *stk)
 	return (max_val);
 }
 
-int get_min_val(t_stack *stk)
+int	get_min_val(t_stack *stk)
 {
 	int	min_val;
 
@@ -49,31 +49,4 @@ int get_min_val(t_stack *stk)
 		stk = stk->next;
 	}
 	return (min_val);
-}
-
-int get_val_idx(t_stack *stk, int val)
-{
-	size_t			idx;
-//	const size_t	stk_size = get_stack_size(stk);
-
-	idx = 0;
-	while (stk)
-	{
-		if (stk->val == val)
-			break ;
-		stk = stk->next;
-		idx++;
-	}
-//	if (idx == stk_size)
-//		idx = 0;
-	return (idx);
-}
-
-int get_bottom_val(t_stack *stk)
-{
-	if (!stk)
-		return (0);//TODO
-	while (stk->next)
-		stk = stk->next;
-	return (stk->val);
 }

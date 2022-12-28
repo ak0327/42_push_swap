@@ -38,6 +38,10 @@ SRC			= main.c \
 			  optimize_cmd.c \
 			  print_for_debug.c \
 			  utils.c \
+			  push_num_x2y.c \
+			  push_num_controller.c \
+			  get_cost_helper.c \
+			  get_idx.c \
 
 
 

@@ -35,17 +35,6 @@ t_stack	*get_last_elem(t_stack *elem)
 	return (elem);
 }
 
-void	ft_stack_iter(t_stack *stk, void (*f)(void *))
-{
-	if (!stk)
-		return ;
-	while (stk)
-	{
-		(*f)(stk);
-		stk = stk->next;
-	}
-}
-
 void	ft_stack_clear(t_stack **stk)
 {
 	t_stack	*next;
@@ -58,4 +47,5 @@ void	ft_stack_clear(t_stack **stk)
 		free(*stk);
 		*stk = next;
 	}
+	*stk = NULL;
 }

@@ -17,7 +17,7 @@ void	ss(t_info *info)
 	swap(info, E_SA, false);
 	swap(info, E_SB, false);
 	if (add_cmd_to_list(&(info->op_list), E_SS) == FAIL)
-		return ; //TODO;
+		free_and_exit_with_msg_fd(info, EXIT_FAILURE, "Error\n", STDERR_FILENO);
 }
 
 void	rr(t_info *info)
@@ -25,7 +25,7 @@ void	rr(t_info *info)
 	rotate(info, E_RA, false);
 	rotate(info, E_RB, false);
 	if (add_cmd_to_list(&info->op_list, E_RR) == FAIL)
-		return ;//TODO
+		free_and_exit_with_msg_fd(info, EXIT_FAILURE, "Error\n", STDERR_FILENO);
 }
 
 void	rrr(t_info *info)
@@ -33,5 +33,5 @@ void	rrr(t_info *info)
 	reverse_rotate(info, E_RRA, false);
 	reverse_rotate(info, E_RRB, false);
 	if (add_cmd_to_list(&info->op_list, E_RRR) == FAIL)
-		return ;//TODO
+		free_and_exit_with_msg_fd(info, EXIT_FAILURE, "Error\n", STDERR_FILENO);
 }

@@ -34,7 +34,7 @@ void	swap(t_info *info, t_op cmd, bool is_add_op)
 	second_elem->next = first_elem;
 	*stk = second_elem;
 	if (is_add_op && add_cmd_to_list(&(info->op_list), cmd) == FAIL)
-		return ;//TODO
+		free_and_exit_with_msg_fd(info, EXIT_FAILURE, "Error\n", STDERR_FILENO);
 }
 
 void	push(t_info *info, t_op cmd, bool is_add_op)
@@ -57,7 +57,7 @@ void	push(t_info *info, t_op cmd, bool is_add_op)
 		return ;
 	add_left(popped_elem, push_to);
 	if (is_add_op && add_cmd_to_list(&info->op_list, cmd) == FAIL)
-		return ;//TODO
+		free_and_exit_with_msg_fd(info, EXIT_FAILURE, "Error\n", STDERR_FILENO);
 }
 
 void	rotate(t_info *info, t_op cmd, bool is_add_op)
@@ -75,7 +75,7 @@ void	rotate(t_info *info, t_op cmd, bool is_add_op)
 		return ;
 	add_right(first_elem, stk);
 	if (is_add_op && add_cmd_to_list(&info->op_list, cmd) == FAIL)
-		return ;//TODO
+		free_and_exit_with_msg_fd(info, EXIT_FAILURE, "Error\n", STDERR_FILENO);
 }
 
 void	reverse_rotate(t_info *info, t_op cmd, bool is_add_op)
@@ -93,5 +93,5 @@ void	reverse_rotate(t_info *info, t_op cmd, bool is_add_op)
 		return ;
 	add_left(last_elem, stk);
 	if (is_add_op && add_cmd_to_list(&info->op_list, cmd) == FAIL)
-		return ;//TODO
+		free_and_exit_with_msg_fd(info, EXIT_FAILURE, "Error\n", STDERR_FILENO);
 }

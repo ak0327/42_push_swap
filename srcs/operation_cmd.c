@@ -14,8 +14,8 @@
 
 int	add_cmd_to_list(t_op_list **list, t_op cmd)
 {
-	t_op_list 	*new_node;
-	t_op_list 	*last;
+	t_op_list	*new_node;
+	t_op_list	*last;
 
 	if (!list)
 		return (PASS);
@@ -51,17 +51,19 @@ void	print_cmd_list(t_op_list *list, bool is_print_cnt)
 		ft_printf("cmd:%d\n", cnt);
 }
 
-size_t	get_cmd_list_size(t_op_list *list)
+void	cmd_list_clear(t_op_list **list)
 {
-	size_t	cnt;
+	t_op_list	*next;
 
-	cnt = 0;
-	while (list)
+	if (!list)
+		return ;
+	while (*list)
 	{
-		list = list->next;
-		cnt++;
+		next = (*list)->next;
+		free(*list);
+		*list = next;
 	}
-	return (cnt);
+	*list = NULL;
 }
 
 char	*get_cmd(t_op cmd)
@@ -89,17 +91,4 @@ char	*get_cmd(t_op cmd)
 	if (cmd == E_RRR)
 		return ("rrr");
 	return ("Not Exist");
-}
-
-t_op	get_ri_cmd(t_push_stk op_stk, size_t rx_times, size_t y_insert_idx)
-{
-	if (op_stk == E_PUSH_A2B)
-	{
-		if (y_insert_idx > rx_times)
-			return (E_RB);
-		return (E_RA);
-	}
-	if (y_insert_idx > rx_times)
-		return (E_RA);
-	return (E_RB);
 }

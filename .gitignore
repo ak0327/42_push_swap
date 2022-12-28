@@ -5,5 +5,5 @@
 !Makefile
 !srcs/
 !includes/
-!lib/
+!lib/*
 !bonus/
