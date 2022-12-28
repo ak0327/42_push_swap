@@ -208,6 +208,23 @@ void	test_operate(t_info *info)
 // ra, rb, rr		Shift up; rotate
 // rra, rrb, rrr	Shift down; reverse rotate
 
+void	init_calc_cost_params(t_info *info)
+{
+	info->cost->push_num = 0;
+	info->cost->is_sort_a2z = 0;
+	info->cost->shift_type = E_RX_RY;
+	info->cost->out_idx = 0;
+	info->cost->in_idx = 0;
+	info->cost->out_from_bottom = 0;
+	info->cost->in_from_bottom = 0;
+	info->cost->size_x = 0;
+	info->cost->size_y = 0;
+	info->cost->cost_rx_ry = 0;
+	info->cost->cost_rx_rry = 0;
+	info->cost->cost_rrx_ry = 0;
+	info->cost->cost_rrx_rry = 0;
+}
+
 t_info	*init_params(int argc)
 {
 	t_info		*info;
@@ -221,12 +238,16 @@ t_info	*init_params(int argc)
 	info->num_cnt = (size_t)argc - 1;
 	info->sorted_array = NULL;
 	info->is_sorted = true;
+	info->cost = (t_cost *)malloc(sizeof(t_cost));
+	if (!info->cost)
+	{
+		free(info);
+		return (NULL);
+	}
+	init_calc_cost_params(info);
 	return (info);
 }
 
-// valid argv
-// create_stack_a(); add atoi(argv[i]) to stack a
-// create_stack_b(); empty stack
 int	get_input_nums(char ***argv, t_info *info)
 {
 	bool	is_atoi_success;
@@ -310,12 +331,12 @@ int main(int argc, char **argv)
 //	print_cmd_list_with_msg(info->op_list, "after_sort");
 
 //	printf("before opt\n");
-//	print_cmd_list(info->op_list);
+//	print_cmd_list(info->op_list, false);
 
-//	optimize_cmd(info);
+	optimize_cmd(info);
 
-//	printf("after opt\n");
-	print_cmd_list(info->op_list);
+//	printf("\nafter opt\n");
+	print_cmd_list(info->op_list, false);
 
 	// free()
 //	free(sorted_array);//TODO: cmd_list, stack

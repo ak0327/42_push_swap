@@ -36,13 +36,19 @@ int	add_cmd_to_list(t_op_list **list, t_op cmd)
 	return (PASS);
 }
 
-void	print_cmd_list(t_op_list *list)
+void	print_cmd_list(t_op_list *list, bool is_print_cnt)
 {
+	int	cnt;
+
+	cnt = 0;
 	while (list)
 	{
 		ft_printf("%s\n", get_cmd(list->cmd));
 		list = list->next;
+		cnt++;
 	}
+	if (is_print_cnt)
+		ft_printf("cmd:%d\n", cnt);
 }
 
 size_t	get_cmd_list_size(t_op_list *list)
@@ -85,7 +91,7 @@ char	*get_cmd(t_op cmd)
 	return ("Not Exist");
 }
 
-t_op	get_ri_cmd(t_p_stk op_stk, size_t rx_times, size_t y_insert_idx)
+t_op	get_ri_cmd(t_push_stk op_stk, size_t rx_times, size_t y_insert_idx)
 {
 	if (op_stk == E_PUSH_A2B)
 	{
