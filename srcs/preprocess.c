@@ -26,7 +26,7 @@ static size_t	bubble_sort(int **array, size_t elem_cnt)
 		j = i + 1;
 		while (j < elem_cnt)
 		{
-			if ((*array)[i] > (*array)[j])
+			if ((*array)[i] >= (*array)[j])
 			{
 				tmp_num = (*array)[i];
 				(*array)[i] = (*array)[j];
@@ -49,7 +49,7 @@ int	*get_sorted_array(t_info *info)
 
 	if (!info)
 		return (NULL);
-	array_m = (int *)ft_calloc(sizeof(int), info->num_cnt + 1);
+	array_m = (int *)ft_calloc(sizeof(int), info->input_num_cnt + 1);
 	if (!array_m)
 		return (NULL);
 	stk = info->stk_a;
@@ -60,9 +60,9 @@ int	*get_sorted_array(t_info *info)
 		stk = stk->next;
 		idx++;
 	}
-	swap_times = bubble_sort(&array_m, info->num_cnt);
+	swap_times = bubble_sort(&array_m, info->input_num_cnt);
 	if (swap_times > 0)
-		info->is_sorted = false;
+		info->is_already_sorted = false;
 	return (array_m);
 }
 
@@ -71,7 +71,7 @@ int	check_arg_valid(t_info *info)
 	size_t	i;
 
 	i = 0;
-	while (i + 1 < info->num_cnt)
+	while (i + 1 < info->input_num_cnt)
 	{
 		if (info->sorted_array_m[i] == info->sorted_array_m[i + 1])
 			return (FAIL);

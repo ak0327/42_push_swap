@@ -12,92 +12,64 @@
 
 #include "./../includes/push_swap.h"
 
-void	init_calc_cost_params(t_info *info)
+
+static int	exec_push_swap(t_info *info, char ***argv, t_init_push pattern)
 {
-	info->cost_m->shift_type = E_RX_RY;
-	info->cost_m->out_idx = 0;
-	info->cost_m->in_idx = 0;
-	info->cost_m->out_frm_bottom = 0;
-	info->cost_m->in_frm_bottom = 0;
-	info->cost_m->size_x = 0;
-	info->cost_m->size_y = 0;
-	info->cost_m->cost_rx_ry = 0;
-	info->cost_m->cost_rx_rry = 0;
-	info->cost_m->cost_rrx_ry = 0;
-	info->cost_m->cost_rrx_rry = 0;
-}
-
-t_info	*init_params(int argc)
-{
-	t_info		*info_m;
-
-	info_m = (t_info *)malloc(sizeof(t_info));
-	if (!info_m)
-		return (NULL);
-	info_m->stk_a = NULL;
-	info_m->stk_b = NULL;
-	info_m->op_list = NULL;
-	info_m->num_cnt = (size_t)argc - 1;
-	info_m->sorted_array_m = NULL;
-	info_m->is_sorted = true;
-	info_m->cost_m = (t_cost *)malloc(sizeof(t_cost));
-	if (!info_m->cost_m)
-	{
-		free(info_m);
-		return (NULL);
-	}
-	init_calc_cost_params(info_m);
-	return (info_m);
-}
-
-int	get_input_nums(char ***argv, t_info *info)
-{
-	bool	is_atoi_success;
-	int		input_num;
-	t_stack	*new_elem;
-	size_t	i;
-
-	i = 1;
-	while ((*argv)[i])
-	{
-		input_num = ft_atoi((*argv)[i], &is_atoi_success);
-		if (!is_atoi_success)
-			return (FAIL);
-		new_elem = create_stack_elem(input_num);
-		if (!new_elem)
-		{
-			ft_stack_clear(&info->stk_a);
-			return (FAIL);
-		}
-		add_right(new_elem, &info->stk_a);
-		i++;
-	}
+	if (!info)
+		return (FAIL);
+	if (get_input_nums(argv, info) == FAIL)
+		return (FAIL);
+	info->sorted_array_m = get_sorted_array(info);
+	if (!info->sorted_array_m)
+		return (FAIL);
+	if (info->is_already_sorted)
+		return (ALREADY_SORTED);
+	if (check_arg_valid(info) == FAIL)
+		return (FAIL);
+	compress_dimension(info);
+	exec_sort(info, pattern);
+	optimize_cmd(info);
 	return (PASS);
 }
 
 int	main(int argc, char **argv)
 {
-	t_info	*info;
+	t_info	*info1;
+	t_info	*info2;
+	int		ret1;
+	int 	ret2;
+	int		exit_no;
 
-	info = NULL;
 	if (argc == 1)
-		free_and_exit_with_msg_fd(info, EXIT_FAILURE, "Error\n", STDERR_FILENO);
-	info = init_params(argc);
-	if (!info)
-		return (2);
-	if (get_input_nums(&argv, info) == FAIL)
-		free_and_exit_with_msg_fd(info, EXIT_FAILURE, "Error\n", STDERR_FILENO);
-	info->sorted_array_m = get_sorted_array(info);
-	if (!info->sorted_array_m)
-		free_and_exit_with_msg_fd(info, EXIT_FAILURE, "Error\n", STDERR_FILENO);
-	if (info->is_sorted)
-		free_and_exit_with_msg_fd(info, EXIT_SUCCESS, "", STDOUT_FILENO);
-	if (check_arg_valid(info) == FAIL)
-		free_and_exit_with_msg_fd(info, EXIT_FAILURE, "Error\n", STDERR_FILENO);
-	compress_dimension(info);
-	exec_sort(info);
-	optimize_cmd(info);
-	print_cmd_list(info->op_list, false);
-	free_allocs(info);
-	return (EXIT_SUCCESS);
+		free_and_exit_with_msg_fd(NULL, EXIT_FAILURE, "Error\n", STDERR_FILENO);
+	info1 = init_params(argc);
+	info2 = init_params(argc);
+	exit_no = EXIT_FAILURE;
+	ret1 = exec_push_swap(info1, &argv, E_TOP);
+	ret2 = exec_push_swap(info2, &argv, E_MIDDLE);
+	if (ret1 == FAIL || ret2 == FAIL)
+		ft_putstr_fd("Error\n", STDERR_FILENO);
+	else if (ret1 == ALREADY_SORTED || ret2 == ALREADY_SORTED)
+		exit_no = EXIT_SUCCESS;
+	else
+	{
+		if (get_cmd_list_size(info1->op_list) <= get_cmd_list_size(info2->op_list))
+			print_cmd_list(info1->op_list, false);
+		else
+			print_cmd_list(info2->op_list, false);
+		exit_no = EXIT_SUCCESS;
+	}
+	free_allocs(info1);
+	free_allocs(info2);
+	return (exit_no);
 }
+
+#ifdef LESKS
+
+__attribute__((destructor))
+static void	destructor(void)
+{
+	system("leaks -q push_swap");
+}
+
+#endif

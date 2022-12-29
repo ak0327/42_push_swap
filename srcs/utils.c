@@ -38,6 +38,7 @@ void	free_allocs(t_info *info)
 		free(info->cost_m);
 		free(info->sorted_array_m);
 		ft_stack_clear(&info->stk_a);
+		ft_stack_clear(&info->stk_b);
 		cmd_list_clear(&info->op_list);
 		free(info);
 	}

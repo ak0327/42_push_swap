@@ -13,35 +13,59 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "../lib/libft/libft.h"
-# include "../lib/libgnl/get_next_line.h"
-# include "../lib/libftprintf/ft_printf.h"
+# include "./../lib/libft/libft.h"
+# include "./../lib/libgnl/get_next_line.h"
+# include "./../lib/libftprintf/ft_printf.h"
 
-# define PASS		1
-# define FAIL		0
+# define PASS			1
+# define FAIL			0
+# define ALREADY_SORTED	2
 
 typedef struct s_info		t_info;
-typedef struct s_stack		t_stack;
+typedef struct s_stack_elem	t_stack;
 typedef struct s_op_list	t_op_list;
 typedef struct s_cost		t_cost;
 
 typedef enum e_op_cmd		t_op;
 typedef enum e_push_op_stk	t_push_stk;
 typedef enum e_shift_type	t_op_type;
+typedef enum e_init_push	t_init_push;
 
 enum e_op_cmd
 {
-	E_SA,
-	E_SB,
-	E_SS,
-	E_PA,
-	E_PB,
-	E_RA,
-	E_RB,
-	E_RR,
-	E_RRA,
-	E_RRB,
-	E_RRR
+	E_SA = 0,
+	E_SB = 1,
+	E_SS = 2,
+	E_PA = 3,
+	E_PB = 4,
+	E_RA = 5,
+	E_RB = 6,
+	E_RR = 7,
+	E_RRA = 8,
+	E_RRB = 9,
+	E_RRR = 10,
+	E_ERROR = 11
+};
+
+//enum e_op_cmd
+//{
+//	E_SA,
+//	E_SB,
+//	E_SS,
+//	E_PA,
+//	E_PB,
+//	E_RA,
+//	E_RB,
+//	E_RR,
+//	E_RRA,
+//	E_RRB,
+//	E_RRR
+//};
+
+enum e_init_push
+{
+	E_TOP,
+	E_MIDDLE
 };
 
 enum e_push_op_stk
@@ -58,12 +82,12 @@ enum e_shift_type
 	E_RRX_RRY
 };
 
-struct s_stack
+struct s_stack_elem
 {
-	int				raw_value;
-	int				val;
-	struct s_stack	*prev;
-	struct s_stack	*next;
+	int					raw_value;
+	int					val;
+	struct s_stack_elem	*prev;
+	struct s_stack_elem	*next;
 };
 
 struct s_op_list
@@ -89,21 +113,28 @@ struct s_cost
 
 struct s_info
 {
-	struct s_stack		*stk_a;
-	struct s_stack		*stk_b;
+	struct s_stack_elem		*stk_a;
+	struct s_stack_elem		*stk_b;
 	struct s_op_list	*op_list;
-	size_t				num_cnt;
+	size_t				input_num_cnt;
 	int					*sorted_array_m;
-	bool				is_sorted;
+	bool				is_already_sorted;
 	struct s_cost		*cost_m;
 };
+
+/* init.c */
+void	init_calc_cost_params(t_info *info);
+t_info	*init_params(int argc);
+
+/* get_input_nums */
+int		get_input_nums(char ***argv, t_info *info);
 
 /* ft_stack.c */
 t_stack	*create_stack_elem(int num);
 t_stack	*get_last_elem(t_stack *elem);
 void	ft_stack_clear(t_stack **stk);
 
-/* ft_stack_add.c */
+/* ft_stack_operation.c */
 void	add_right(t_stack *elem, t_stack **stk);
 void	add_left(t_stack *elem, t_stack **stk);
 t_stack	*pop_left(t_stack **stk);
@@ -133,6 +164,7 @@ int		add_cmd_to_list(t_op_list **list, t_op cmd);
 char	*get_cmd(t_op cmd);
 void	print_cmd_list(t_op_list *list, bool is_print_cnt);
 void	cmd_list_clear(t_op_list **list);
+size_t	get_cmd_list_size(t_op_list *list);
 
 /* preprocess.c */
 int		*get_sorted_array(t_info *info);
@@ -140,7 +172,7 @@ void	compress_dimension(t_info *info);
 int		check_arg_valid(t_info *info);
 
 /* exec_sort.c */
-void	exec_sort(t_info *info);
+void	exec_sort(t_info *info, t_init_push pattern);
 
 /* push_num_controller.c */
 void	push_a2b_opt_elem_for_z2a(t_info *info);

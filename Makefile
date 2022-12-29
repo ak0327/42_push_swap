@@ -20,13 +20,20 @@ endif
 
 
 # MANDATORY
+ifndef WITH_BONUS
 NAME		= push_swap
+else
+NAME		= $(BONUS_NAME)
+endif
+BONUS_NAME	= checker
+
+#NAME		= push_swap
+#BONUS_NAME	= checker
 
 VPATH		= $(SRC_DIR)
 SRC_DIR		= ./srcs
-SRC			= main.c \
-			  ft_stack.c \
-			  ft_stack_add.c \
+SRC			= ft_stack.c \
+			  ft_stack_operation.c \
 			  ft_stack_get.c \
 			  operation_cmd.c \
 			  operation_controller.c \
@@ -42,10 +49,14 @@ SRC			= main.c \
 			  push_num_controller.c \
 			  get_cost_helper.c \
 			  get_idx.c \
+			  init.c \
+			  get_input.c \
 
-
-
-
+ifdef WITH_BONUS
+SRC			+= main_bonus.c
+else
+SRC			+= main.c
+endif
 
 SRCS		= $(addprefix $(SRC_DIR)/, $(SRC))
 
@@ -54,20 +65,6 @@ OBJS		= $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 DEPS		= $(OBJS:%.o=%.d) #SRC
 
 INCLUDE_DIR	= ./includes
-
-
-# BONUS
-#BONUS_NAME		= pipex_bonus
-B_SRC_DIR		= ./bonus/srcs
-B_INCLUDE_DIR	= ./bonus/includes
-ifdef WITH_BONUS
-#	NAME		= pipex_bonus
-	SRC_DIR		= ./bonus/srcs
-    SRC			= main_bonus.c \
-m.m
-    INCLUDE_DIR	= ./bonus/includes
-endif
-
 
 # LIBS
 LIB_DIR		= ./lib
@@ -110,7 +107,7 @@ clean:
 	@make clean -C $(LIBFTPRINTF_DIR)
 
 fclean:	clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(BONUS_NAME)
 	@make fclean -C $(LIBFT_DIR)
 	@make fclean -C $(LIBGNL_DIR)
 	@make fclean -C $(LIBFTPRINTF_DIR)
@@ -118,7 +115,7 @@ fclean:	clean
 re: fclean all
 
 bonus:
-	@make WITH_BONUS=1
+	make WITH_BONUS=1
 
 bonus_test:
 	@make WITH_BONUS=1 WITH_TEST=1
