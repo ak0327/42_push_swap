@@ -19,7 +19,7 @@ void	ft_putchar_fd(char c, int fd)
 	ret = write(fd, &c, sizeof(char));
 	if (ret < 0)
 	{
-		perror("write");
 		exit (EXIT_FAILURE);
 	}
 }
+//		perror("write");

@@ -47,21 +47,6 @@ enum e_op_cmd
 	E_ERROR = 11
 };
 
-//enum e_op_cmd
-//{
-//	E_SA,
-//	E_SB,
-//	E_SS,
-//	E_PA,
-//	E_PB,
-//	E_RA,
-//	E_RB,
-//	E_RR,
-//	E_RRA,
-//	E_RRB,
-//	E_RRR
-//};
-
 enum e_init_push
 {
 	E_TOP,
@@ -113,8 +98,8 @@ struct s_cost
 
 struct s_info
 {
-	struct s_stack_elem		*stk_a;
-	struct s_stack_elem		*stk_b;
+	struct s_stack_elem	*stk_a;
+	struct s_stack_elem	*stk_b;
 	struct s_op_list	*op_list;
 	size_t				input_num_cnt;
 	int					*sorted_array_m;
@@ -162,9 +147,9 @@ void	rrr(t_info *info);
 /* operatoin_cmd.c */
 int		add_cmd_to_list(t_op_list **list, t_op cmd);
 char	*get_cmd(t_op cmd);
-void	print_cmd_list(t_op_list *list, bool is_print_cnt);
+void	print_op_list(t_op_list *list, bool is_print_cnt);
 void	cmd_list_clear(t_op_list **list);
-size_t	get_cmd_list_size(t_op_list *list);
+size_t	get_oplist_size(t_op_list *list);
 
 /* preprocess.c */
 int		*get_sorted_array(t_info *info);

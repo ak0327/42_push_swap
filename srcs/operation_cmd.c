@@ -36,7 +36,7 @@ int	add_cmd_to_list(t_op_list **list, t_op cmd)
 	return (PASS);
 }
 
-size_t	get_cmd_list_size(t_op_list *list)
+size_t	get_oplist_size(t_op_list *list)
 {
 	size_t	size;
 
@@ -49,7 +49,7 @@ size_t	get_cmd_list_size(t_op_list *list)
 	return (size);
 }
 
-void	print_cmd_list(t_op_list *list, bool is_print_cnt)
+void	print_op_list(t_op_list *list, bool is_print_cnt)
 {
 	int	cnt;
 

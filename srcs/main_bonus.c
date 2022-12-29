@@ -13,7 +13,7 @@
 #include "push_swap.h"
 
 /* prototype declaration*/
-static t_op get_operation_cmd(char *line);
+static t_op	get_operation_cmd(char *line);
 static void	exec_sort_by_cmd(t_info *info);
 static int	check_sorted(t_stack *stk);
 
@@ -21,29 +21,21 @@ static int	check_sorted(t_stack *stk);
 int	main(int argc, char **argv)
 {
 	t_info	*info;
+
 	if (argc == 1)
 		return (EXIT_FAILURE);
 	info = init_params(argc);
 	if (get_input_nums(&argv, info) == FAIL)
-	{
-		ft_putstr_fd("Error\n", STDERR_FILENO);
-		free_allocs(info);
-		return (EXIT_FAILURE);
-	}
+		free_and_exit_with_msg_fd(info, EXIT_FAILURE, "Error\n", STDERR_FILENO);
 	info->sorted_array_m = get_sorted_array(info);
 	if (check_arg_valid(info) == FAIL)
-	{
-		ft_putstr_fd("Error\n", STDERR_FILENO);
-		free_allocs(info);
-		return (EXIT_FAILURE);
-	}
+		free_and_exit_with_msg_fd(info, EXIT_FAILURE, "Error\n", STDERR_FILENO);
 	compress_dimension(info);
 	exec_sort_by_cmd(info);
 	if (get_stack_size(info->stk_b) == 0 && check_sorted(info->stk_a) == PASS)
 		ft_putstr_fd("OK\n", STDOUT_FILENO);
 	else
 		ft_putstr_fd("KO\n", STDOUT_FILENO);
-	print_stacks(info, "print");
 	free_allocs(info);
 	return (EXIT_SUCCESS);
 }
@@ -71,9 +63,11 @@ static void	exec_sort_by_cmd(t_info *info)
 	free(line);
 }
 
-static t_op get_operation_cmd(char *line)
+static t_op	get_operation_cmd(char *line)
 {
-	const char	*op_str[] = {"sa\n", "sb\n", "ss\n", "pa\n", "pb\n", "ra\n", "rb\n", "rr\n", "rra\n", "rrb\n", "rrr\n", NULL};
+	const char	*op_str[] = {\
+	"sa\n", "sb\n", "ss\n", "pa\n", "pb\n", \
+	"ra\n", "rb\n", "rr\n", "rra\n", "rrb\n", "rrr\n", NULL};
 	int			i;
 
 	if (ft_strlen_ns(line) == 0)
