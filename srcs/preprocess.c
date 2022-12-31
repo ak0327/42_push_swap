@@ -26,7 +26,7 @@ static size_t	bubble_sort(int **array, size_t elem_cnt)
 		j = i + 1;
 		while (j < elem_cnt)
 		{
-			if ((*array)[i] >= (*array)[j])
+			if ((*array)[i] > (*array)[j])
 			{
 				tmp_num = (*array)[i];
 				(*array)[i] = (*array)[j];
@@ -99,7 +99,9 @@ void	compress_dimension(t_info *info)
 	elem = info->stk_a;
 	while (elem)
 	{
-		elem->val = get_sorted_idx(info->sorted_array_m, elem->raw_value);
+		elem->val = get_sorted_idx(
+				info->sorted_array_m,
+				elem->raw_value);
 		elem = elem->next;
 	}
 }

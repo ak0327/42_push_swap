@@ -9,7 +9,7 @@
 /*   Updated: 2022/12/25 20:41:36 by takira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+//utils filename
 #include "./../includes/push_swap.h"
 
 int	max_int(int a, int b)
@@ -31,7 +31,8 @@ size_t	get_min_in_four_nums(size_t x, size_t y, size_t z, size_t n)
 	return (minsize(minsize(minsize(x, y), z), n));
 }
 
-void	free_allocs(t_info *info)
+//exit->still reacheble
+void	free_allocs(t_info *info)//null
 {
 	if (info)
 	{

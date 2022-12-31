@@ -17,7 +17,7 @@ static int	exec_push_swap(t_info *info, char ***argv, t_init_push pattern);
 static int	evaluate_result(int ret1, int ret2, t_info *info1, t_info *info2);
 
 /* function */
-int	main(int argc, char **argv)
+int	main(int argc, char **argv)//TODO: arg=1, "2 3 4"
 {
 	t_info	*info1;
 	t_info	*info2;
@@ -26,7 +26,7 @@ int	main(int argc, char **argv)
 	int		exit_no;
 
 	if (argc == 1)
-		free_and_exit_with_msg_fd(NULL, EXIT_FAILURE, "Error\n", STDERR_FILENO);
+		return (1);
 	info1 = init_params(argc);
 	info2 = init_params(argc);
 	ret1 = exec_push_swap(info1, &argv, E_TOP);

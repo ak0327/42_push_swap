@@ -38,10 +38,10 @@ void	push_num_x2y(t_info *info, int n, t_push_stk op_stk, t_op_type op_type)
 
 static void	push_num_rx_ry(t_info *info, t_push_stk op_stk)
 {
-	size_t	rr_times;
-	size_t	ri_times;
-	t_op	rx_cmd;
-	t_op	ry_cmd;
+	size_t rr_times;
+	size_t ri_times;
+	t_op rx_cmd;
+	t_op ry_cmd;
 
 	rr_times = minsize(info->cost_m->out_idx, info->cost_m->in_idx);
 	ri_times = maxsize(info->cost_m->out_idx, info->cost_m->in_idx) - rr_times;
