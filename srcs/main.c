@@ -6,7 +6,7 @@
 /*   By: takira <takira@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/14 22:20:54 by takira            #+#    #+#             */
-/*   Updated: 2022/12/14 22:20:56 by takira           ###   ########.fr       */
+/*   Updated: 2023/01/16 19:26:30 by takira           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ static int	exec_push_swap(t_info *info, char ***argv, t_init_push pattern)
 	info->sorted_array_m = get_sorted_array(info);
 	if (!info->sorted_array_m)
 		return (FAIL);
-	if (info->is_already_sorted)
-		return (ALREADY_SORTED);
 	if (check_arg_valid(info) == FAIL)
 		return (FAIL);
+	if (info->is_already_sorted)
+		return (ALREADY_SORTED);
 	compress_dimension(info);
 	exec_sort(info, pattern);
 	optimize_cmd(info);
