@@ -1,6 +1,6 @@
 # 42_push_swap
 
-score (nun of arg x num of test case)
+score (num of arg x num of test case)
 - 100x500
   - max   : 623
   - median: 557
