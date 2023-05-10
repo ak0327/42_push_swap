@@ -9,3 +9,5 @@ score (num of arg x num of test case)
   - max   : 5494
   - median: 5085
   - min   : 4723
+
+要素数を毎回調べてO(N)かかっているので遅い
